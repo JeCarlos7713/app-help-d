@@ -1,11 +1,9 @@
 import { StyleSheet, View, Text } from 'react-native';
-
+import Initial from './initial/initial';
 
 export default function HomeScreen() {
   return (
-    <View>
-      <Text>Olá!</Text>
-    </View>
+    <Initial></Initial>
   );
 }
 
