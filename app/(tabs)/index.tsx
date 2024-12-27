@@ -1,9 +1,10 @@
 import { StyleSheet, View, Text } from 'react-native';
-import Initial from './initial/initial';
+import Initial from '../../pages/Initial/initial';
+import Login from '@/pages/Login/login';
 
 export default function HomeScreen() {
   return (
-    <Initial></Initial>
+    <Login />
   );
 }
 
