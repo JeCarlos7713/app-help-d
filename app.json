@@ -32,12 +32,6 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ],
-      [
-        "expo-fonts",
-        {
-          "fonts": ["./assets/fonts/Inter-VariableFont_opsz,wght.ttf"]
-        }
       ]
     ],
     "experiments": {

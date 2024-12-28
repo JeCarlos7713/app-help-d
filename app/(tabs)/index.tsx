@@ -1,10 +1,14 @@
 import { StyleSheet, View, Text } from 'react-native';
+import {PaperProvider} from 'react-native-paper'
 import Initial from '../../pages/Initial/initial';
 import Login from '@/pages/Login/login';
 
+
 export default function HomeScreen() {
   return (
-    <Login />
+    <PaperProvider>
+      <Login />
+    </PaperProvider>
   );
 }
 
