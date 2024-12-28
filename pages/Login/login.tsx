@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, SafeAreaView, Image, KeyboardAvoidingView, ScrollView } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 const Login = () => {
+    const [secureTextEntry, setSecureTextEntry] = useState(true)
+    const [eye, setEye] = useState('eye')
+
+    const changeSecureTextEntry = () => {
+        setSecureTextEntry(!secureTextEntry)
+        setEye(secureTextEntry ? 'eye-off' : 'eye')
+    }
+
     return (
         <SafeAreaView style={styles.content}>
             <View style={styles.header}>
@@ -36,8 +44,10 @@ const Login = () => {
                             textColor="#2C2C2C"
                             cursorColor='#2C2C2C'
                             placeholder='Digite seu Token'
-                            secureTextEntry
-                            right={<TextInput.Icon icon="eye" />}
+                            secureTextEntry={secureTextEntry}
+                            right={
+                                <TextInput.Icon onPress={changeSecureTextEntry} icon={eye} />
+                            }
                         />
 
                         <Button
