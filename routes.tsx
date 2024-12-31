@@ -7,7 +7,7 @@ import { Image } from "react-native";
 import { PaperProvider } from 'react-native-paper'
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack'
-
+import RequestsProcess from "./pages/RequestsProcess/requestsProcess";
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -19,6 +19,7 @@ const TabNavigator = () => {
                 backgroundColor: '#2C2C2C',
                 borderTopColor: '#2C2C2C',
                 height: 60,
+                justifyContent: "center"
             }
         }}>
             <Tab.Screen
@@ -28,6 +29,15 @@ const TabNavigator = () => {
                     tabBarShowLabel: false,
                     headerShown: false,
                     tabBarIcon: (({ focused, size, color }) => <Image source={require("./assets/images/home.png")} />)
+                }}
+            />
+            <Tab.Screen
+                name="requests"
+                component={RequestsProcess}
+                options={{
+                    tabBarShowLabel: false,
+                    headerShown: false,
+                    tabBarIcon: (({ focused, size, color }) => <Image source={require("./assets/images/analytics.png")} />)
                 }}
             />
 
