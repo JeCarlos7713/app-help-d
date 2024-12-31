@@ -10,7 +10,7 @@ interface ProcessProps {
 
 const SuccessProcess = ({route}: ProcessProps) => {
     const navigation = useNavigation()
-    const {processId} = route.params
+    const processId = "18777"
   return (
     <SafeAreaView style={styles.container}>
         <Header />
