@@ -3,11 +3,12 @@ import {PaperProvider} from 'react-native-paper'
 import Initial from '../../pages/Initial/initial';
 import Login from '@/pages/Login/login';
 import Home from '@/pages/Home/home'
+import SuccessProcess from '@/pages/SuccessProcess/successProcess';
 
 export default function HomeScreen() {
   return (
     <PaperProvider>
-      <Home />
+      <SuccessProcess processId='18299' />
     </PaperProvider>
   );
 }
