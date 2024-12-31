@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, Image, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, Image, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 const Login = () => {
     const [secureTextEntry, setSecureTextEntry] = useState(true)
@@ -21,7 +21,9 @@ const Login = () => {
             </View>
 
             <View style={styles.contentLogin}>
-                <KeyboardAvoidingView>
+                <KeyboardAvoidingView 
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={80}>
                     <ScrollView>
                         <View style={styles.contentTitle}>
                             <Text style={styles.titleLogin}>Login</Text>
