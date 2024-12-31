@@ -1,15 +1,15 @@
-import { StyleSheet, View, Text } from 'react-native';
-import {PaperProvider} from 'react-native-paper'
-import Initial from '../../pages/Initial/initial';
-import Login from '@/pages/Login/login';
-import Home from '@/pages/Home/home'
-import SuccessProcess from '@/pages/SuccessProcess/successProcess';
+import { StyleSheet } from 'react-native';
+import { PaperProvider } from 'react-native-paper'
+
+import { NavigationContainer, NavigationIndependentTree } from '@react-navigation/native';
+import Routes  from './../../routes';
+import home from '@/pages/Home/home';
 
 export default function HomeScreen() {
   return (
-    <PaperProvider>
-      <SuccessProcess processId='18299' />
-    </PaperProvider>
+    <NavigationIndependentTree >
+      <Routes />
+    </NavigationIndependentTree>
   );
 }
 

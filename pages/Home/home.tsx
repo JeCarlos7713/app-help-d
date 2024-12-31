@@ -5,7 +5,7 @@ import React from 'react'
 import { StyleSheet, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const home = () => {
+const Home = () => {
     return (
         <SafeAreaView style={styles.area}>
             <KeyboardAvoidingView 
@@ -29,7 +29,7 @@ const home = () => {
     )
 }
 
-export default home
+export default Home
 
 const styles = StyleSheet.create({
     area: {

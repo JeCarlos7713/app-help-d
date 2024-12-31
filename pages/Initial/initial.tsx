@@ -1,8 +1,11 @@
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
-
+import { useNavigation } from '@react-navigation/native';
+import Routes from '@/routes';
 
 const Initial = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View>
@@ -16,9 +19,10 @@ const Initial = () => {
         <Text style={styles.textIntroduction}>Centralizando a abertura de chamados na palma da sua mão.</Text>
       </View>
       
-      <TouchableOpacity >
+      <TouchableOpacity onPress={() =>  navigation.navigate('login')}>
         <AntDesign name="playcircleo" size={40} color="white" />
       </TouchableOpacity>
+
     </View>
   )
 }

@@ -1,13 +1,16 @@
 import Header from "@/components/Header/Header"
 import AntDesign from "@expo/vector-icons/AntDesign"
+import { useNavigation } from "expo-router"
 import { StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 
 interface ProcessProps {
-    processId : string
+    route : {}
 }
 
-const SuccessProcess = ({processId} : ProcessProps) => {
+const SuccessProcess = ({route}: ProcessProps) => {
+    const navigation = useNavigation()
+    const {processId} = route.params
   return (
     <SafeAreaView style={styles.container}>
         <Header />
