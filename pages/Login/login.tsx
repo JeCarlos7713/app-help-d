@@ -1,13 +1,35 @@
+import { useNavigation } from 'expo-router'
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, SafeAreaView, Image, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
+import { TabNavigatorNavigationProp } from '@/types/RoutesTypes'
+
 const Login = () => {
     const [secureTextEntry, setSecureTextEntry] = useState(true)
     const [eye, setEye] = useState('eye')
+    const [email, setEmail] = useState("")
+    const [token, setToken] = useState("")
 
     const changeSecureTextEntry = () => {
         setSecureTextEntry(!secureTextEntry)
         setEye(secureTextEntry ? 'eye-off' : 'eye')
+    }
+
+    const navigation = useNavigation<TabNavigatorNavigationProp>()
+
+    const login = () => {
+        
+        const hasMail = email != "" && token != ""
+
+        if (!hasMail) {
+            alert("Erro ao realizar login! Há dados incompletos, preencha todos para prosseguir")
+            return
+        }
+
+        if (email == "jeje" && token == "12345") {
+            navigation.navigate("TabNavigator")
+        }
+
     }
 
     return (
@@ -37,6 +59,8 @@ const Login = () => {
                             textColor="#2C2C2C"
                             cursorColor='#2C2C2C'
                             placeholder='Digite seu e-mail'
+                            value={email}
+                            onChangeText={setEmail}
                         />
                         <TextInput
                             label="Token"
@@ -50,13 +74,14 @@ const Login = () => {
                             right={
                                 <TextInput.Icon onPress={changeSecureTextEntry} icon={eye} />
                             }
+                            onChangeText={setToken}
                         />
 
                         <Button
                             mode="contained"
                             textColor='#FFF'
                             style={styles.buttonStyle}
-                            onPress={() => console.log('Pressed')}
+                            onPress={() => login()}
                         >
                             Entrar
                         </Button>

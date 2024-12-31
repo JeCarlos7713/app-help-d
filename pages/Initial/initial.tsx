@@ -2,9 +2,10 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import Routes from '@/routes';
+import { LoginNavigationProp } from '@/types/RoutesTypes';
 
 const Initial = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<LoginNavigationProp>();
 
   return (
     <View style={styles.container}>
