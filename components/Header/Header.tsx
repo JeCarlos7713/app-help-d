@@ -7,7 +7,7 @@ const Header = () => {
     return (
         <View style={style.header}>
             <LogoBlack />
-            <Icon size={30} source={'arrow-left-circle-outline'} />
+            <Icon color='#2C2C2C' size={30} source={'arrow-left-circle-outline'} />
         </View>
     )
 }
