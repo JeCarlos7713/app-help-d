@@ -1,9 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { PaperProvider } from 'react-native-paper'
-
-import { NavigationContainer, NavigationIndependentTree } from '@react-navigation/native';
+import { NavigationIndependentTree } from '@react-navigation/native';
 import Routes  from './../../routes';
-import home from '@/pages/Home/home';
 
 export default function HomeScreen() {
   return (
