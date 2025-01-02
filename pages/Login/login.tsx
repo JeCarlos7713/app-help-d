@@ -21,12 +21,12 @@ const Login = () => {
         
         const hasMail = email != "" && token != ""
 
-        if (!hasMail) {
-            alert("Erro ao realizar login! Há dados incompletos, preencha todos para prosseguir")
-            return
-        }
+        // if (!hasMail) {
+        //     alert("Erro ao realizar login! Há dados incompletos, preencha todos para prosseguir")
+        //     return
+        // }
 
-        if (email == "jeje" && token == "12345") {
+        if (email == "" && token == "") {
             navigation.navigate("TabNavigator")
         }
 

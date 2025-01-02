@@ -1,20 +1,16 @@
 import { DataUser } from '@/components/DataUser/DataUser'
 import Form from '@/components/Form/Form'
-import Header from '@/components/Header/Header'
 import React from 'react'
-import { StyleSheet, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { StyleSheet, KeyboardAvoidingView, ScrollView, Platform, View } from 'react-native'
 
 const Home = () => {
     return (
-        <SafeAreaView style={styles.area}>
+        <View style={styles.area}>
             <KeyboardAvoidingView 
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 keyboardVerticalOffset={80}
             >
                 <ScrollView>
-                    <Header />
-
                     <DataUser
                         name='Jean Carlos'
                         date={new Date().toLocaleDateString()}
@@ -25,7 +21,7 @@ const Home = () => {
                 </ScrollView>
             </KeyboardAvoidingView>
 
-        </SafeAreaView>
+        </View>
     )
 }
 
