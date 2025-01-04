@@ -3,8 +3,11 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, SafeAreaView, Image, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 import { TabNavigatorNavigationProp } from '@/types/RoutesTypes'
+import Auth from '@/services/auth'
 
 const Login = () => {
+    console.log("LOGIN COMPONENT")
+
     const [secureTextEntry, setSecureTextEntry] = useState(true)
     const [eye, setEye] = useState('eye')
     const [email, setEmail] = useState("")
@@ -17,17 +20,27 @@ const Login = () => {
 
     const navigation = useNavigation<TabNavigatorNavigationProp>()
 
-    const login = () => {
-        
+    const login = async () => {
+        console.log("LOGIN")
         const hasMail = email != "" && token != ""
 
-        // if (!hasMail) {
-        //     alert("Erro ao realizar login! Há dados incompletos, preencha todos para prosseguir")
-        //     return
-        // }
+        if (!hasMail) {
+            alert("Erro ao realizar login! Há dados incompletos, preencha todos para prosseguir")
+            return
+        }
 
+        console.log(email)
+        console.log(token)
         if (email == "" && token == "") {
-            navigation.navigate("TabNavigator")
+            console.log("INSTANCIANDOOOOOOOOOO")
+            const instance = new Auth(email.trim(), token.trim())
+            console.log("INSTANCIANDOOOOOOOOOO")
+            const auth = await instance.execute()
+            alert(auth)
+            if (auth.success && auth.retorno.length > 0) {
+
+                navigation.navigate("TabNavigator")
+            }
         }
 
     }

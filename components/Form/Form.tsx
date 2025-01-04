@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity } from "react-native"
 import { Input } from "../Input/Input"
 import { Picker } from '@react-native-picker/picker'
@@ -6,6 +6,7 @@ import Select from "../Select/Select"
 import { OptionItem } from "@/types/OptionItem"
 import Label from "../Label/Label"
 import { InputArea } from "../InputArea/InputArea"
+import GetGroups from "@/services/grupoAtendimento"
 
 const listPrioridade: OptionItem[] = [
     {
@@ -26,41 +27,35 @@ const listPrioridade: OptionItem[] = [
     },
 ]
 
-const GruposAtendimento: OptionItem[] = [
-    {
-        label: "",
-        value: ""
-    },
-    {
-        label: "TI",
-        value: "TI"
-    },
-    {
-        label: "RM",
-        value: "RM"
-    },
-    {
-        label: "C5",
-        value: "C5"
-    },
-    {
-        label: "Protheus",
-        value: "protheus"
-    },
-    {
-        label: "Fluig",
-        value: "fluig"
-    },
-    {
-        label: "Manutenção",
-        value: "manut"
-    },
-]
-
-
 
 const Form = () => {
 
+    const [groups, setGroups] = useState<OptionItem[]>([])
+
+    const setGroupsFormmat = async () => {
+        console.log("GRUPOOOOOOS")
+        const groups = await new GetGroups().execute()
+        console.log("SETANDO OS GRUPOS: ")
+        console.log(groups)
+        if (groups.length == 0) {
+            throw new Error("Não foi possível carregar os grupos de atendimento solicitados.")
+        }
+
+        const formattGroups = groups.retorno.map((group: any) => {
+            return {
+                label : group.area,
+                value : group.ID
+            }
+        })
+
+        console.log(formattGroups)
+
+        setGroups(formattGroups)
+    }
+
+    useEffect(() => {
+        setGroupsFormmat()
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -75,12 +70,12 @@ const Form = () => {
 
             <View>
                 <Label label="Prioridade" />
-                <Select data={listPrioridade} onChange={() => { }} placeholder="Selecione uma prioridade" topSelect={200} />
+                <Select data={listPrioridade} onChange={() => { }} placeholder="Selecione uma prioridade" topSelect={150} />
             </View>
 
             <View>
                 <Label label="Grupo de Atendimento" />
-                <Select data={GruposAtendimento} onChange={() => { }} placeholder="Selecione o grupo" topSelect={380} />
+                <Select data={groups} onChange={() => { }} placeholder="Selecione o grupo" topSelect={250} />
             </View>
 
             <View>
