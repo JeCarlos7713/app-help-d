@@ -39,7 +39,7 @@ const Select = ({ data, onChange, placeholder , topSelect }: SelectProps) => {
 
     const buttonRef = useRef<View>(null)
 
-    const [top, setTop] = useState(0)
+    const [top, setTop] = useState(100)
 
     useEffect(() => setTop(topSelect), [])
 
