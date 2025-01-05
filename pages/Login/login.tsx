@@ -4,9 +4,9 @@ import { View, Text, StyleSheet, SafeAreaView, Image, KeyboardAvoidingView, Scro
 import { TextInput, Button } from 'react-native-paper'
 import { TabNavigatorNavigationProp } from '@/types/RoutesTypes'
 import Auth from '@/services/auth'
+import useStorage from '@/hooks/useStorage'
 
 const Login = () => {
-    console.log("LOGIN COMPONENT")
 
     const [secureTextEntry, setSecureTextEntry] = useState(true)
     const [eye, setEye] = useState('eye')
@@ -22,30 +22,29 @@ const Login = () => {
 
     const login = async () => {
         try {
-            console.log("LOGIN")
-        const hasMail = email != "" && token != ""
+            const hasMail = email != "" && token != ""
 
-        if (!hasMail) {
-            alert("Erro ao realizar login! Há dados incompletos, preencha todos para prosseguir")
-            return
-        }
-
-        console.log(email)
-        console.log(token)
-        if (email != "" && token != "") {
-            const instance = new Auth(email.trim(), token.trim())
-            const auth = await instance.execute()
-            console.log(auth)
-            if (auth.success && auth.retorno) {
-                console.log("PASSOUUUU")
-                navigation.navigate("TabNavigator")
+            if (!hasMail) {
+                alert("Erro ao realizar login! Há dados incompletos, preencha todos para prosseguir")
+                return
             }
-        }
+
+            if (email != "" && token != "") {
+                const instance = new Auth(email.trim(), token.trim())
+                const auth = await instance.execute()
+                
+                if (auth.success && auth.retorno) {
+                    await saveData(auth.retorno)
+                    navigation.navigate("TabNavigator")
+                }
+            }
 
         } catch (error) {
             alert(error)
         }
     }
+
+    const saveData = async (dataUser: {}) => await useStorage().storeData(dataUser)
 
     return (
         <SafeAreaView style={styles.content}>
@@ -58,9 +57,9 @@ const Login = () => {
             </View>
 
             <View style={styles.contentLogin}>
-                <KeyboardAvoidingView 
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                keyboardVerticalOffset={80}>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    keyboardVerticalOffset={80}>
                     <ScrollView>
                         <View style={styles.contentTitle}>
                             <Text style={styles.titleLogin}>Login</Text>
