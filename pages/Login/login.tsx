@@ -21,7 +21,8 @@ const Login = () => {
     const navigation = useNavigation<TabNavigatorNavigationProp>()
 
     const login = async () => {
-        console.log("LOGIN")
+        try {
+            console.log("LOGIN")
         const hasMail = email != "" && token != ""
 
         if (!hasMail) {
@@ -31,18 +32,19 @@ const Login = () => {
 
         console.log(email)
         console.log(token)
-        if (email == "" && token == "") {
-            console.log("INSTANCIANDOOOOOOOOOO")
+        if (email != "" && token != "") {
             const instance = new Auth(email.trim(), token.trim())
-            console.log("INSTANCIANDOOOOOOOOOO")
             const auth = await instance.execute()
-            alert(auth)
-            if (auth.success && auth.retorno.length > 0) {
-
+            console.log(auth)
+            if (auth.success && auth.retorno) {
+                console.log("PASSOUUUU")
                 navigation.navigate("TabNavigator")
             }
         }
 
+        } catch (error) {
+            alert(error)
+        }
     }
 
     return (

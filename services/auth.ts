@@ -4,12 +4,9 @@ class Auth {
 
     mail: string
     token: string
-    constructor(mail: string, token: string){
+    constructor(mail: string, token: string) {
         this.mail = mail
         this.token = token
-
-        console.log("MAIL, ", this.mail)
-        console.log("TOKEN, ", this.token)
     }
 
     #getBasicAuth() {
@@ -23,43 +20,40 @@ class Auth {
         header.append("Content-Type", "application/json")
 
         const body = JSON.stringify({
-            "email": this.mail,
-            "token": this.token
+            "email": this.mail.trim(),
+            "token": this.token.trim()
         });
-        console.log(body)
         const requestOptions = {
             method: 'POST',
             headers: header,
             body: body
         };
-        console.log(requestOptions)
         return requestOptions
     }
     async execute() {
-        console.log("EXECUTANDOOOOOOOOOOO")
         try {
+            const requestOptions = this.#getRequest();
 
-            const requestOptions = this.#getRequest()
-            console.log(requestOptions)
-            const data = await fetch(`${urlAPI}/tokenAccess`, requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    return {
-                        success: true,
-                        ...result
-                    }
-                })
-                .catch(error => {
-                    return {
-                        success: false,
-                        ...error
-                    }
-                });
+            const response = await fetch(`${urlAPI}/tokenAccess`, requestOptions);
 
+            if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+            }
 
-            return data
+            const result = await response.json();
+            const data = {
+                success: true,
+                ...result
+            };
+
+            console.log(data)
+            return data;
         } catch (error) {
-            alert(error)
+            console.error("Erro na execução:", error);
+            return {
+                success: false,
+                error: error
+            };
         }
     }
 }
