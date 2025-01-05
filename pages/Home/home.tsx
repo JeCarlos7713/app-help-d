@@ -1,9 +1,26 @@
 import { DataUser } from '@/components/DataUser/DataUser'
 import Form from '@/components/Form/Form'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, KeyboardAvoidingView, ScrollView, Platform, View } from 'react-native'
+import useStorage from '@/hooks/useStorage'
 
 const Home = () => {
+
+    const [userName, setUsername] = useState('')
+    const [mail, setMail] = useState('')
+    
+    const getDataUser = async () => {
+        const dataUser = await useStorage().getData()
+        if (dataUser) {
+            setUsername(dataUser.nome)
+            setMail(dataUser.email)
+        }
+    }
+
+    useEffect(() => {
+        getDataUser()
+    }, [])
+
     return (
         <View style={styles.area}>
             <KeyboardAvoidingView 
@@ -12,9 +29,9 @@ const Home = () => {
             >
                 <ScrollView>
                     <DataUser
-                        name='Jean Carlos'
+                        name={userName}
                         date={new Date().toLocaleDateString()}
-                        email='jean@gmail.com'
+                        email={mail}
                     />
 
                     <Form />
