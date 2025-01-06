@@ -3,7 +3,7 @@ import home from "./pages/Home/home";
 import Initial from "./pages/Initial/initial";
 import Login from "./pages/Login/login";
 import SuccessProcess from "./pages/SuccessProcess/successProcess";
-import { Image, View } from "react-native";
+import { Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack'
 import RequestsProcess from "./pages/RequestsProcess/requestsProcess";
