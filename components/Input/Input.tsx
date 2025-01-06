@@ -6,7 +6,7 @@ interface InputProps {
     label       : string
     placeholder : string
     value?       : string
-    change?      : () => void
+    change      : (value: string) => void
     blur?        : () => void
     focus?       : () => void
 }
@@ -18,7 +18,7 @@ export const Input = ({ label, placeholder, value, change, blur, focus }: InputP
             <TextInput
                 placeholder={placeholder}
                 style={styles.input}
-                onChange={change}
+                onChangeText={change}
                 onBlur={blur}
                 onFocus={focus}
                 value={value}

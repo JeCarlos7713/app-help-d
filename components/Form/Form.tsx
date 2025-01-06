@@ -7,6 +7,7 @@ import { OptionItem } from "@/types/OptionItem"
 import Label from "../Label/Label"
 import { InputArea } from "../InputArea/InputArea"
 import GetGroups from "@/services/grupoAtendimento"
+import { PropsStart } from "@/types/PropsStart"
 
 const listPrioridade: OptionItem[] = [
     {
@@ -27,16 +28,24 @@ const listPrioridade: OptionItem[] = [
     },
 ]
 
-
-const Form = () => {
+const Form = ({sendProcess} : any) => {
 
     const [groups, setGroups] = useState<OptionItem[]>([])
+    const [topicoAjuda, setTopicoAjuda] = useState()
+    const [prioridade, setPrioridade] = useState()
+    const [atendimento, setAtendimento] = useState()
+    const [resumo, setResumo] = useState()
+    
+    const sendProcessObject = {
+        topicoAjuda : topicoAjuda,
+        grupo       : atendimento,
+        prioridade  : prioridade,
+        resumo      : resumo
+    }
+
 
     const setGroupsFormmat = async () => {
-        console.log("GRUPOOOOOOS")
         const groups = await new GetGroups().execute()
-        console.log("SETANDO OS GRUPOS: ")
-        console.log(groups)
         if (groups.length == 0) {
             throw new Error("Não foi possível carregar os grupos de atendimento solicitados.")
         }
@@ -47,8 +56,6 @@ const Form = () => {
                 value : group.ID
             }
         })
-
-        console.log(formattGroups)
 
         setGroups(formattGroups)
     }
@@ -64,26 +71,26 @@ const Form = () => {
                 <Input
                     label="Tópico de Ajuda"
                     placeholder="Digite o tópico de Ajuda"
-                    change={() => {}}
+                    change={(e:any) => setTopicoAjuda(e)}
                 />
             </View>
 
             <View>
                 <Label label="Prioridade" />
-                <Select data={listPrioridade} onChange={() => { }} placeholder="Selecione uma prioridade" topSelect={150} />
+                <Select data={listPrioridade} onChange={(e: any) => setPrioridade(e)} placeholder="Selecione uma prioridade" topSelect={150} />
             </View>
 
             <View>
                 <Label label="Grupo de Atendimento" />
-                <Select data={groups} onChange={() => { }} placeholder="Selecione o grupo" topSelect={250} />
+                <Select data={groups} onChange={(e: any) => setAtendimento(e)} placeholder="Selecione o grupo" topSelect={250} />
             </View>
 
             <View>
-                <InputArea lines={4} placeholder="Resuma o chamado" label="Resumo do Chamado"  />
+                <InputArea lines={4} placeholder="Resuma o chamado" label="Resumo do Chamado" change={(e:any) => setResumo(e)}  />
             </View>
 
             <View>
-                <TouchableOpacity style={styles.button} onPress={() => {}}>
+                <TouchableOpacity style={styles.button} onPress={() => sendProcess(sendProcessObject)}>
                     <Text style={styles.textButton}>Enviar</Text>
                 </TouchableOpacity>
             </View>

@@ -6,7 +6,7 @@ interface InputProps {
     lines       : number
     placeholder : string
     value?       : string
-    change?      : () => void
+    change      : (value: string) => void
     label       : string
 }
 
@@ -17,7 +17,7 @@ export const InputArea = ({lines, label, placeholder, value, change }: InputProp
             <TextInput
                 placeholder={placeholder}
                 style={styles.input}
-                onChange={change}
+                onChangeText={change}
                 value={value}
                 multiline={true}
                 numberOfLines={lines}
