@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react"
 import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity } from "react-native"
 import { Input } from "../Input/Input"
-import { Picker } from '@react-native-picker/picker'
 import Select from "../Select/Select"
 import { OptionItem } from "@/types/OptionItem"
 import Label from "../Label/Label"
 import { InputArea } from "../InputArea/InputArea"
 import GetGroups from "@/services/grupoAtendimento"
-import { PropsStart } from "@/types/PropsStart"
 
 const listPrioridade: OptionItem[] = [
     {
