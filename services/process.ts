@@ -1,6 +1,6 @@
 import { user, password, urlAPI } from "../configs/config.json"
 
-class Auth {
+class Process {
 
     matricula: string
 
@@ -56,4 +56,4 @@ class Auth {
     }
 }
 
-export default Auth
+export default Process

@@ -1,27 +1,13 @@
 import Request from '@/components/Request/Request'
 import { RequestsInfos } from '@/types/RequestsInfos'
 import AntDesign from '@expo/vector-icons/AntDesign'
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import 
 
 const RequestsProcess = () => {
-  const requests: RequestsInfos[] = [
-    {
-      numChamado: '0001',
-      status: 'aberto',
-      prioridade: 'Alta',
-      topicoAjuda: 'Ajuste no PC',
-      atendimento: 'Técnico'
-    },
-    {
-      numChamado: '0002',
-      status: 'fechado',
-      prioridade: 'Média',
-      topicoAjuda: 'PC com Falha',
-      atendimento: 'Técnico'
-    }
-  ]
+
+  const [requests, setRequests] = useState<RequestsInfos[]>([])
 
   return (
     <View style={styles.area}>
@@ -32,9 +18,10 @@ const RequestsProcess = () => {
 
       <View style={styles.container}>
         {
+          requests.length > 0 ? 
           requests.map((request, index) => (
             <Request key={index} {...request} />
-          ))
+          )) : <Text style={styles.textChamado}>Ops... Não há chamados abertos</Text>
         }
       </View>
     </View>
@@ -60,5 +47,11 @@ const styles = StyleSheet.create({
   },
   container: {
     gap: 10
+  },
+  textChamado : {
+    fontSize: 17,
+    textAlign: 'center',
+    fontWeight: "bold"
+
   }
 })
