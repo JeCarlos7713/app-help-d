@@ -1,13 +1,26 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { LogoBlack } from '../LogoBlack/LogoBlack'
 import { Icon } from 'react-native-paper'
+import useStorage from '@/hooks/useStorage'
+import { useNavigation } from '@react-navigation/native';
+import { LoginNavigationProp } from '@/types/RoutesTypes';
 
 const Header = () => {
+    const navigation = useNavigation<LoginNavigationProp>();
+    
+    const logout = async () => {
+        await useStorage().removeItem()
+        navigation.navigate('login')
+    }
+
     return (
         <View style={style.header}>
             <LogoBlack />
-            <Icon color='#2C2C2C' size={30} source={'arrow-left-circle-outline'} />
+            
+            <TouchableOpacity onPress={() => logout()}>
+                <Icon  color='#2C2C2C' size={30} source={'arrow-left-circle-outline'} />
+            </TouchableOpacity>
         </View>
     )
 }
