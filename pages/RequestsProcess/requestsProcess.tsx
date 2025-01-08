@@ -1,14 +1,48 @@
 import Request from '@/components/Request/Request'
 import { RequestsInfos } from '@/types/RequestsInfos'
 import AntDesign from '@expo/vector-icons/AntDesign'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-import 
+import Process from '@/services/process'
+import useStorage from '@/hooks/useStorage'
 
 const RequestsProcess = () => {
 
   const [requests, setRequests] = useState<RequestsInfos[]>([])
+  
+  const getDataUser = async () => {
+    const dataUser = await useStorage().getData()
+    if (dataUser) {
+      return dataUser.matricula
+    }
 
+    throw "Erro ao retornar os dados do usuário!"
+  }
+  
+  const setProcessFormmat = async () => {
+    const userMat = await getDataUser()
+    const process = await new Process(userMat).execute()
+    
+    if (process.length == 0) {
+      throw new Error("Não foi possível carregar os grupos de atendimento solicitados.")
+    }
+
+    const formattProcess: RequestsInfos[] = process.retorno.map((proc: any) => {
+      return {
+        numChamado  : proc.process,
+        status      : proc.status,
+        prioridade  : proc.prioridade,
+        topicoAjuda : proc.topico,
+        atendimento : proc.grupo
+      }
+    })
+
+    setRequests(formattProcess)
+  }
+
+  useEffect(() => {
+    setProcessFormmat()
+  }, [])
   return (
     <View style={styles.area}>
 
@@ -18,10 +52,10 @@ const RequestsProcess = () => {
 
       <View style={styles.container}>
         {
-          requests.length > 0 ? 
-          requests.map((request, index) => (
-            <Request key={index} {...request} />
-          )) : <Text style={styles.textChamado}>Ops... Não há chamados abertos</Text>
+          requests.length > 0 ?
+            requests.map((request, index) => (
+              <Request key={index} {...request} />
+            )) : <Text style={styles.textChamado}>Ops... Não há chamados abertos</Text>
         }
       </View>
     </View>
@@ -38,17 +72,17 @@ const styles = StyleSheet.create({
     width: "100%",
     gap: 20
   },
-  title : {
+  title: {
     fontSize: 23,
     fontWeight: "bold"
   },
-  icon : {
+  icon: {
     fontSize: 23
   },
   container: {
     gap: 10
   },
-  textChamado : {
+  textChamado: {
     fontSize: 17,
     textAlign: 'center',
     fontWeight: "bold"
