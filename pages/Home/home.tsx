@@ -8,10 +8,12 @@ import { BodyStartProcess } from '@/interfaces/BodyStartProcess'
 import GetGroups from "@/services/grupoAtendimento"
 import StartProcess from '@/services/startProcess'
 import { useNavigation } from 'expo-router'
-import { SuccessNavigationProp } from '@/types/RoutesTypes'
+import { SuccessNavigationProp, LoginNavigationProp } from '@/types/RoutesTypes'
+
 
 const Home = () => {
     const navigation = useNavigation<SuccessNavigationProp>()
+    const navigationLogin = useNavigation<LoginNavigationProp>()
     const [userName, setUsername] = useState('')
     const [mail, setMail] = useState('')
     const [matricula, setMatricula] = useState('')
@@ -19,10 +21,12 @@ const Home = () => {
 
     const getDataUser = async () => {
         const dataUser = await useStorage().getData()
-        if (dataUser) {
+        if (dataUser.token) {
             setUsername(dataUser.nome)
             setMail(dataUser.email)
             setMatricula(dataUser.matricula)
+        }else{
+            navigationLogin.navigate("login")
         }
     }
 

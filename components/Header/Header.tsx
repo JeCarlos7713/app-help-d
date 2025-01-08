@@ -10,7 +10,7 @@ const Header = () => {
     const navigation = useNavigation<LoginNavigationProp>();
     
     const logout = async () => {
-        await useStorage().removeItem()
+        await useStorage().removeData()
         navigation.navigate('login')
     }
 

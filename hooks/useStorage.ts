@@ -36,7 +36,7 @@ const useStorage = () => {
     return {
         getData,
         storeData,
-        removeItem: removeData
+        removeData
     }
 }
 

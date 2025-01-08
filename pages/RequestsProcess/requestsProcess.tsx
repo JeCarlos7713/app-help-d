@@ -5,18 +5,20 @@ import React, { useEffect, useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import Process from '@/services/process'
 import useStorage from '@/hooks/useStorage'
+import { useNavigation } from '@react-navigation/native';
+import { LoginNavigationProp } from '@/types/RoutesTypes';
 
 const RequestsProcess = () => {
-
+  const navigation = useNavigation<LoginNavigationProp>();
   const [requests, setRequests] = useState<RequestsInfos[]>([])
   
   const getDataUser = async () => {
     const dataUser = await useStorage().getData()
-    if (dataUser) {
+    if (dataUser.token) {
       return dataUser.matricula
+    }else{
+      navigation.navigate('login')
     }
-
-    throw "Erro ao retornar os dados do usuário!"
   }
   
   const setProcessFormmat = async () => {
