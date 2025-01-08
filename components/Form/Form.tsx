@@ -14,15 +14,15 @@ const listPrioridade: OptionItem[] = [
     },
     {
         label: "Alto",
-        value: "alto"
+        value: "alta"
     },
     {
         label: "Médio",
-        value: "medio"
+        value: "media"
     },
     {
         label: "Baixo",
-        value: "baixo"
+        value: "baixa"
     },
 ]
 
